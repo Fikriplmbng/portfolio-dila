@@ -1,0 +1,468 @@
+/* --- 1. VARIABEL WARNA & FONT --- */
+:root {
+    --bg-dark: #051F20;      /* Background Utama */
+    --bg-gradient: #0B2B26;  /* Gradasi Background */
+    --accent: #235347;       /* Tombol / Elemen Dekorasi */
+    --glow: #8EB69B;         /* Efek Cahaya / Border */
+    --text-main: #DAF1DE;    /* Teks Utama */
+    --text-dim: #8EB69B;     /* Teks Deskripsi */
+    
+    --font-heading: 'Playfair Display', serif; /* Font Elegan untuk Judul */
+    --font-body: 'Poppins', sans-serif;        /* Font Modern untuk Teks */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    /* Efek Gradasi Halus di Background seperti referensi */
+    background: radial-gradient(circle at 10% 20%, #163832 0%, var(--bg-dark) 80%);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* --- 2. HEADER --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+    position: absolute; /* Agar header menumpuk di atas background */
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-family: var(--font-heading);
+}
+
+nav ul {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+nav a:hover, nav a.active {
+    color: var(--text-main);
+}
+
+#menu-toggle { display: none; } /* Sembunyikan tombol menu di laptop */
+
+/* --- 3. HERO SECTION (FLEXBOX) --- */
+.hero {
+    display: flex; /* Kunci Layout Kiri-Kanan */
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh; /* Full layar */
+    padding: 0 10%;
+    padding-top: 80px; /* Kompensasi header */
+}
+
+/* Bagian Kiri: Teks */
+.hero-text {
+    flex: 1; /* Mengambil 50% lebar */
+    padding-right: 50px;
+}
+
+.hero-text h1 {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-text .highlight {
+    font-style: italic; /* Gaya estetik */
+}
+
+.hero-text p {
+    color: var(--text-dim);
+    margin-bottom: 30px;
+    font-size: 1rem;
+    max-width: 400px;
+}
+
+/* Tombol Gaya Gradient */
+.cta-btn {
+    padding: 12px 30px;
+    background: linear-gradient(90deg, var(--accent), var(--bg-gradient));
+    color: var(--text-main);
+    border: 1px solid var(--glow);
+    border-radius: 50px; /* Membulat seperti kapsul */
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(142, 182, 155, 0.2); /* Bayangan hijau halus */
+    transition: transform 0.3s;
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(142, 182, 155, 0.4);
+}
+
+/* Bagian Kanan: Gambar */
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Frame Kotak di Belakang Gambar (Efek Layer) */
+.img-frame {
+    width: 320px;
+    height: 380px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5); /* Shadow gelap */
+    position: relative;
+}
+
+/* Efek Glow di belakang frame (Lingkaran Pink di referensi diganti Hijau) */
+.img-frame::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--glow);
+    top: 20px;
+    right: -20px; /* Geser sedikit agar terlihat berlapis */
+    border-radius: 20px;
+    z-index: -1; /* Taruh di belakang */
+    opacity: 0.3;
+}
+
+.img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* --- 4. RESPONSIVE (HP) --- */
+@media (max-width: 768px) {
+    header { padding: 20px; }
+    
+    #menu-toggle {
+        display: block; /* Munculkan tombol hamburger */
+        background: none;
+        border: none;
+        color: var(--text-main);
+        font-size: 1.8rem;
+    }
+    
+    nav ul {
+        display: none; /* Sembunyikan menu desktop */
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background-color: var(--accent);
+        padding: 20px;
+        border-radius: 10px;
+    }
+    
+    nav ul.show { display: flex; } /* Class untuk JS nanti */
+
+    .hero {
+        flex-direction: column-reverse; /* Gambar di atas, Teks di bawah */
+        text-align: center;
+        padding-top: 100px;
+        justify-content: center;
+    }
+
+    .hero-text {
+        padding-right: 0;
+        margin-top: 30px;
+    }
+
+    .hero-text p { margin: 0 auto 20px; }
+    
+    .img-frame {
+        width: 250px;
+        height: 300px;
+    }
+}
+
+/* --- 5. MODAL & FOOTER --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 100; 
+    left: 0; top: 0; 
+    width: 100%; height: 100%; 
+    background-color: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--bg-gradient);
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid var(--glow);
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    position: relative;
+}
+
+#closeModal {
+    position: absolute;
+    top: 10px; right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-main);
+}
+/* --- TAMBAHAN UNTUK HALAMAN LAIN --- */
+
+/* Container Umum Halaman */
+.page-container {
+    padding: 120px 10% 80px; /* Jarak atas 120px agar tidak tertutup header */
+    min-height: 100vh;
+}
+
+.page-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* --- ABOUT PAGE --- */
+.about-content {
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center; /* Bisa diganti left jika ingin rata kiri */
+}
+
+.about-text p {
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.skills {
+    margin-top: 30px;
+}
+
+.skills h3 { margin-bottom: 15px; color: var(--text-main); }
+
+.tag {
+    display: inline-block;
+    background: rgba(142, 182, 155, 0.1);
+    color: var(--glow);
+    padding: 8px 15px;
+    border-radius: 20px;
+    margin: 5px;
+    border: 1px solid var(--accent);
+    font-size: 0.9rem;
+}
+
+/* --- PORTFOLIO & GALLERY GRID --- */
+.portfolio-grid, .gallery-grid {
+    display: grid;
+    /* Grid Responsif: Otomatis mengisi kolom */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Kartu Portofolio */
+.card {
+    background-color: rgba(255,255,255,0.03);
+    border: 1px solid var(--accent);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--glow);
+}
+
+.card-img {
+    height: 180px;
+    width: 100%;
+    /* Placeholder warna jika tidak ada gambar */
+    opacity: 0.7;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-body h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.card-body p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+}
+
+.btn-small {
+    font-size: 0.8rem;
+    color: var(--glow);
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.btn-small:hover { border-bottom-color: var(--glow); }
+
+/* --- GALLERY SPECIFIC --- */
+.gallery-section { margin-bottom: 50px; }
+.gallery-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--glow);
+    padding-left: 15px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover; /* Agar gambar tidak gepeng */
+    border-radius: 10px;
+    transition: transform 0.3s;
+    border: 1px solid transparent;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.02);
+    border-color: var(--glow);
+}
+
+/* --- CONTACT FORM --- */
+.contact-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.02);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid var(--accent);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, textarea {
+    background: rgba(5, 31, 32, 0.5);
+    border: 1px solid var(--accent);
+    padding: 15px;
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font-body);
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--glow);
+    box-shadow: 0 0 10px rgba(142, 182, 155, 0.2);
+}
+
+textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* --- SOCIAL MEDIA CAPSULE --- */
+
+/* Wadah agar posisi kapsul ada di tengah */
+.social-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Kotak Kapsulnya */
+.social-capsule {
+    /* Menggunakan warna Sage (#8EB69B) ke Hijau Medium (#235347) */
+    background: linear-gradient(90deg, var(--glow), var(--accent));
+    padding: 15px 40px;
+    border-radius: 50px; /* Membuat bentuk lonjong sempurna */
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(142, 182, 155, 0.3); /* Efek bayangan hijau lembut */
+    border: 1px solid rgba(255,255,255,0.2);
+    min-width: 300px;
+    transition: transform 0.3s;
+}
+
+.social-capsule:hover {
+    transform: translateY(-5px); /* Efek naik sedikit saat di-hover */
+}
+
+/* Teks di dalam kapsul */
+.social-capsule p {
+    color: var(--darkest); /* Warna teks gelap agar kontras dengan background terang */
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* Mengatur baris ikon */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Jarak antar ikon */
+}
+
+/* Gaya Ikon */
+.social-icons a {
+    color: var(--darkest);
+    font-size: 1.2rem;
+    transition: 0.3s;
+    background: rgba(255,255,255,0.2); /* Lingkaran transparan di belakang ikon */
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.social-icons a:hover {
+    background: var(--darkest);
+    color: var(--glow);
+    transform: scale(1.1);
+}
